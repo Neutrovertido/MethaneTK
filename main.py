@@ -5,6 +5,7 @@ from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
 import time
 import pyautogui
+import threading
 
 # Style variables
 bgc = "black"
@@ -16,25 +17,23 @@ filename = ""
 
 # Spam function
 def spam(tm, rt):
+    f = open(rt, 'r', encoding='utf-8')
     time.sleep(tm)
-    print(rt)
-    f = open(rt, 'r')
-    while (btrigg['text'] == "Stop the music!"):
-        for i in f:
-            time.sleep(tm)
+    for i in f:
+        if (btrigg['text'] == "Stop the music!"):
             pyautogui.typewrite(i)
             pyautogui.press("enter")
+            time.sleep(tm)
 
 # Start/Stop Button
 def goSpam():
     if (btrigg['text'] == "Let's rock n' roll!"):
             try:
                 btrigg.config(text="Stop the music!")
-                tm = delay.get()
+                tm = int(cdelay.get())
                 rt = lselect["text"]
-                time.sleep(tm)
                 spam(tm, rt)
-            finally:
+            except:
                 messagebox.showerror("Error","Delay must be a number!")
     else:
             btrigg.config(text="Let's rock n' roll!")
@@ -51,10 +50,9 @@ main = Tk()
 main.config(bg=bgc)
 main.title("PythonSpammerTK")
 main.resizable(False, False)
-delay = IntVar()
 
 app = Frame(main, bg=bgc)
-app.grid(padx=30, pady=10)
+app.pack(padx=30, pady=10)
 
 title = Label(app, text="Select your spam preferences", font=("Helvetica", 20, "bold"), bg=bgc, fg=fore)
 title.grid(row=0, column=0, pady=5, padx=5, columnspan=2)
@@ -66,7 +64,7 @@ cdelay.grid(row=1, column=1, pady=10, padx=5, sticky="w")
 
 lselect = Label(app, text="File not selected!", font=gfont, bg=bgc, fg="red")
 lselect.grid(row=2, column=0, pady=10, padx=5, sticky="w")
-bfile = Button(app, text="Select file...", font=gfont, command=lambda:fileSearch()) # Add command later
+bfile = Button(app, text="Select file...", font=gfont, command=fileSearch)
 bfile.grid(row=2, column=1, pady=10, padx=5, sticky="w")
 
 lor = Label(app, text="or/and...", font=("Helvetica", 16), bg=bgc, fg=fore)
@@ -81,7 +79,7 @@ scrollb = Scrollbar(app, command=ttext.yview)
 ttext.config(yscrollcommand=scrollb.set)
 scrollb.grid(row=5, column=2, pady=10, sticky="ns")
 
-btrigg = Button(app, text="Let's rock n' roll!", font=("Helvetica", 16, "bold"), command=lambda:goSpam())
+btrigg = Button(app, text="Let's rock n' roll!", font=("Helvetica", 16, "bold"), command=lambda: threading.Thread(target=goSpam).start())
 btrigg.grid(row=6, column=0, pady=5, padx=5, columnspan=3, sticky="ew")
 
 main.mainloop()
