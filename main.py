@@ -12,18 +12,26 @@ bgc = "black"
 gfont = ("Helvetica", 12)
 fore = "white"
 
-# File variables
-filename = ""
-
 # Spam function
 def spam(tm, rt):
-    f = open(rt, 'r', encoding='utf-8')
-    time.sleep(tm)
-    for i in f:
-        if (btrigg['text'] == "Stop the music!"):
-            pyautogui.typewrite(i)
-            pyautogui.press("enter")
-            time.sleep(tm)
+    try:
+        f = open(rt, 'r', encoding='utf-8')
+        time.sleep(tm)
+        for i in f:
+            if (btrigg['text'] == "Stop the music!"):
+                pyautogui.typewrite(i)
+                pyautogui.press("enter")
+                time.sleep(tm)
+    except:
+        lselect.config(text="No file was selected", fg="lightgray")
+    finally:
+        textload = ttext.get("1.0", "end-1c")
+        words = textload.split()
+        if (btrigg['text'] == "Stop the music!" and len(textload) > 0):
+            for i in words:
+                pyautogui.typewrite(i)
+                pyautogui.press("enter")
+                time.sleep(tm)
 
 # Start/Stop Button
 def goSpam():
@@ -42,7 +50,8 @@ def goSpam():
 # Ask file function
 def fileSearch():
     filename = askopenfilename()
-    lselect.config(text=filename, fg="green")
+    if len(filename) > 0:
+        lselect.config(text=filename, fg="green")
 
 
 # GUI
