@@ -1,5 +1,3 @@
-# delay bug, start/stop
-
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
@@ -27,11 +25,13 @@ def spam(tm, rt):
     finally:
         textload = ttext.get("1.0", "end-1c")
         words = textload.split()
-        if (btrigg['text'] == "Stop the music!" and len(textload) > 0):
+        if (len(textload) > 0):
             for i in words:
-                pyautogui.typewrite(i)
-                pyautogui.press("enter")
-                time.sleep(tm)
+                if (btrigg['text'] == "Stop the music!"):
+                    pyautogui.typewrite(i)
+                    pyautogui.press("enter")
+                    time.sleep(tm)
+        btrigg.config(text="Let's rock n' roll!")
 
 # Start/Stop Button
 def goSpam():
