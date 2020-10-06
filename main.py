@@ -37,9 +37,9 @@ def spam(tm, rt):
 def goSpam():
     if (btrigg['text'] == "Let's rock n' roll!"):
             try:
-                btrigg.config(text="Stop the music!")
                 tm = int(cdelay.get())
                 rt = lselect["text"]
+                btrigg.config(text="Stop the music!")
                 spam(tm, rt)
             except:
                 messagebox.showerror("Error","Delay must be a number!")
@@ -55,6 +55,15 @@ def fileSearch():
     else:
         lselect.config(text="File not selected!", fg="red")
 
+# Clear data function
+def clear():
+    cdelay.delete(0, "end")
+    lselect.config(text="File not selected!", fg="red")
+    ttext.delete("1.0", END)
+
+# About function
+def about():
+    messagebox.showinfo("About","Methane TK - a1.0\n⚖GPL-3.0 License\nMade by Neutrovertido!")
 
 # GUI
 main = Tk()
@@ -97,7 +106,13 @@ btrigg = Button(app, text="Let's rock n' roll!", font=("Helvetica", 16, "bold"),
 btrigg.grid(row=6, column=0, pady=5, padx=5, columnspan=3, sticky="ew")
 # -----------------------------------------------------------------------------------------------
 mfile = Menu(bar, tearoff=0)
+mfile.add_command(label="New", command=clear)
+mfile.add_command(label="Select file...", command=fileSearch)
+mfile.add_separator()
+mfile.add_command(label="Exit", command=main.quit)
+
 mhelp = Menu(bar, tearoff=0)
+mhelp.add_command(label="About", command=about)
 
 bar.add_cascade(label="File", menu=mfile)
 bar.add_cascade(label="Help", menu=mhelp)
