@@ -59,6 +59,7 @@ main = Tk()
 main.config(bg=bgc)
 main.title("PythonSpammerTK")
 main.resizable(False, False)
+main.iconbitmap("./img/forward-32.ico")
 
 app = Frame(main, bg=bgc)
 app.pack(padx=30, pady=10)
