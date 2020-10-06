@@ -52,17 +52,21 @@ def fileSearch():
     filename = askopenfilename()
     if len(filename) > 0:
         lselect.config(text=filename, fg="green")
+    else:
+        lselect.config(text="File not selected!", fg="red")
 
 
 # GUI
 main = Tk()
 main.config(bg=bgc)
-main.title("PythonSpammerTK")
+main.title("MethaneTK")
 main.resizable(False, False)
 main.iconbitmap("./img/forward-32.ico")
+bar = Menu(main)
+main.config(menu=bar)
 
 app = Frame(main, bg=bgc)
-app.pack(padx=30, pady=10)
+app.pack(padx=30, pady=15)
 
 title = Label(app, text="Select your spam preferences", font=("Helvetica", 20, "bold"), bg=bgc, fg=fore)
 title.grid(row=0, column=0, pady=5, padx=5, columnspan=2)
@@ -91,5 +95,11 @@ scrollb.grid(row=5, column=2, pady=10, sticky="ns")
 
 btrigg = Button(app, text="Let's rock n' roll!", font=("Helvetica", 16, "bold"), command=lambda: threading.Thread(target=goSpam).start())
 btrigg.grid(row=6, column=0, pady=5, padx=5, columnspan=3, sticky="ew")
+# -----------------------------------------------------------------------------------------------
+mfile = Menu(bar, tearoff=0)
+mhelp = Menu(bar, tearoff=0)
+
+bar.add_cascade(label="File", menu=mfile)
+bar.add_cascade(label="Help", menu=mhelp)
 
 main.mainloop()
