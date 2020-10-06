@@ -63,7 +63,7 @@ def clear():
 
 # About function
 def about():
-    messagebox.showinfo("About","Methane TK - a1.0\n⚖GPL-3.0 License\nMade by Neutrovertido!")
+    messagebox.showinfo("About","Methane TK - a0.0.1\n⚖GPL-3.0 License\nMade by Neutrovertido!")
 
 # GUI
 main = Tk()
