@@ -70,7 +70,7 @@ main = Tk()
 main.config(bg=bgc)
 main.title("MethaneTK")
 main.resizable(False, False)
-main.iconbitmap("./img/forward-32.ico")
+# main.iconbitmap("./img/forward-32.ico") # Linux doesn't support it
 bar = Menu(main)
 main.config(menu=bar)
 
